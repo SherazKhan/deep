@@ -38,7 +38,7 @@ epochs_grad = mne.Epochs(raw, events, event_id, tmin, tmax, picks=picks,
 
 
 # region Ploting
-x = epochs_mag['Freq113Hz'].get_data()
+x = epochs_mag['Freq43Hz'].get_data()
 x = x.transpose((1,0,2))
 params = dict(Fs=2000,fpass=[5,600],tapers=[2, 3],itc=1)
 (plv,f) = spectral.mtcpca(x,params)
@@ -48,7 +48,7 @@ plt.xlabel('Frequency (Hz)')
 plt.grid(True)
 plt.show()
 
-x = epochs_grad['Freq113Hz'].get_data()
+x = epochs_grad['Freq43Hz'].get_data()
 x = x.transpose((1,0,2))
 params = dict(Fs=2000,fpass=[5,600],tapers=[2, 3],itc=1)
 (plv,f) = spectral.mtcpca(x,params)
