@@ -16,6 +16,17 @@ fwd = mne.make_forward_solution(fname_raw, trans=trans, src=src, bem=bem,fname=N
 
 grad_map = mne.sensitivity_map(fwd, ch_type='grad', mode='fixed')
 mag_map = mne.sensitivity_map(fwd, ch_type='mag', mode='fixed')
+mag_grad_map = mag_map.copy()
+mag_grad_map._data = mag_map.data - grad_map.data
 
-mag_map.plot(hemi='split',subjects_dir=subjects_dir,subject=subject,
+brain_mag = mag_map.plot(time_viewer=True,hemi='split',subjects_dir=subjects_dir,subject=subject,
+             time_label='Magnetometer sensitivity',clim=dict(lims=[0, 50, 100]),
+                      views=['lateral','medial'], surface='inflated')
+
+brain_grad = grad_map.plot(time_viewer=True,hemi='split',subjects_dir=subjects_dir,subject=subject,
+             time_label='Gradiometer sensitivity',clim=dict(lims=[0, 50, 100]),
+                      views=['lateral','medial'], surface='inflated')
+
+brain_mag_grad = mag_grad_map.plot(time_viewer=True,hemi='split',subjects_dir=subjects_dir,subject=subject,
+             time_label='Magnetometer - Gradiometer sensitivity',clim=dict(lims=[0, 50, 100]),
                       views=['lateral','medial'], surface='inflated')
